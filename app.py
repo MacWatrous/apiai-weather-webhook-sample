@@ -29,8 +29,18 @@ def webhook():
 
 
 def processRequest(req):
-    if req.get("result").get("action") != "yahooWeatherForecast":
-        return {}
+    #if req.get("result").get("action") != "yahooWeatherForecast":
+        #return {}
+
+    if req.get("result").get("action") == "drugInquiry":
+    	rxcui = returnRXCUI(req)
+    	return rxcui
+    	#ndc = returnNDC(rxcui)
+
+    #else if req.get("result").get("action") == "drugInteractions":
+    #	baseurl = "https://rxnav.nlm.nih.gov/REST/"
+    #else: 
+    #	return {}
     baseurl = "https://query.yahooapis.com/v1/public/yql?"
     yql_query = makeYqlQuery(req)
     if yql_query is None:
@@ -41,6 +51,21 @@ def processRequest(req):
     res = makeWebhookResult(data)
     return res
 
+#def returnNDC(rxcui):
+
+def returnRXCUI(req):
+	baseurl = "https://rxnav.nlm.nih.gov/REST/approximateTerm.json?"
+	result = req.get("result")
+	parameters = result.get("parameters")
+	drug = parameters.get("drug")
+	url = baseurl + urllib.urlencode({'term': drug}) + "&maxEntries=4"
+	result = urllib.urlopen(url).read()
+	data = json.loads(result)
+	rxcui = data['approximateGroup'][0]['canidate'][0]['rxcui']
+	#makeWebhookResult???
+	return rxcui;
+
+#def returnInteractions(rxcuiList):
 
 def makeYqlQuery(req):
     result = req.get("result")
@@ -49,8 +74,7 @@ def makeYqlQuery(req):
     if city is None:
         return None
 
-    return "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='" + city + "')"
-
+    return "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='" + city + "')" 
 
 def makeWebhookResult(data):
     query = data.get('query')
