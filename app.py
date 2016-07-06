@@ -34,7 +34,14 @@ def processRequest(req):
 
     if req.get("result").get("action") == "drugInquiry":
     	rxcui = returnRXCUI(req)
-    	return rxcui
+    	speech = rxcui
+    	return {
+    		"speech": speech,
+       		"displayText": speech,
+        	# "data": data,
+        	# "contextOut": [],
+        	"source": "apiai-weather-webhook-sample"
+    	}
     	#ndc = returnNDC(rxcui)
 
     #else if req.get("result").get("action") == "drugInteractions":
