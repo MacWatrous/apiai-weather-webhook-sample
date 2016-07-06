@@ -68,7 +68,7 @@ def returnRXCUI(req):
 	url = baseurl + urllib.urlencode({'term': drug}) + "&maxEntries=0"
 	result = urllib.urlopen(url).read()
 	data = json.loads(result)
-	rxcui = 'hello'#data['approximateGroup'][0]['canidate'][0]['rxcui']
+	rxcui = data.get('approximateGroup').get('canidate').get('rxcui')
 	#makeWebhookResult???
 	return rxcui;
 
