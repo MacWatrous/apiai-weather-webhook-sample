@@ -89,9 +89,10 @@ def returnInquiry(req):
 	drug = parameters.get("drug")
 	url = baseurl + "generic_name:\"" + drug + "\""
 	result = requests.get(url)
-	if result.status_code == 404:
+	if result.status_code != 200:
 		url = baseurl + "brand_name:\"" + drug + "\""
 		result = (requests.get(url))
+		print("help!")
 
 	result = result.text
 	lhs, rhs = result.split("indications_and_usage\":[\"",1)
