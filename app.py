@@ -75,7 +75,7 @@ def returnRXCUI(req):
 	#rxcui = candidate.get('rxcui')
 	#makeWebhookResult???
 	rxcui = "hello"
-	return rxcui;
+	return result.text;
 
 #def returnInteractions(rxcuiList):
 
