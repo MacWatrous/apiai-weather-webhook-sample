@@ -97,7 +97,7 @@ def returnInquiry(req):
 	result = result.text
 	#lhs, rhs = result.split("indications_and_usage\":[\"",1)
 	#lhs, rhs = rhs.split("\"],\"set_id\": \"",1)
-	inquiry = "hello"
+	inquiry = result
 	return inquiry
 
 #def returnInteractions(rxcuiList):
