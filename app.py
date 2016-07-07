@@ -69,13 +69,13 @@ def returnRXCUI(req):
 	parameters = result.get("parameters")
 	drug = parameters.get("drug")
 	url = baseurl + "term=" + drug + "&maxEntries=1"
-	result = requests.get(url)
-	data = result.json()
-	approximateGroup = data.get('approximateGroup')
-	candidate = approximateGroup.get('candidate')
-	rxcui = candidate.get('rxcui')
+	#result = requests.get(url)
+	#data = result.json()
+	#approximateGroup = data.get('approximateGroup')
+	#candidate = approximateGroup.get('candidate')
+	#rxcui = candidate.get('rxcui')
 	#makeWebhookResult???
-	#rxcui = url
+	rxcui = "hello"
 	return rxcui;
 
 #def returnInteractions(rxcuiList):
