@@ -35,7 +35,8 @@ def processRequest(req):
 
     if req.get("result").get("action") == "drugInquiry":
     	rxcui = returnRXCUI(req)
-    	speech = rxcui
+    	ndc = returnNDC(rxcui)
+    	speech = ndc
     	return {
     		"speech": speech,
        		"displayText": speech,
@@ -61,7 +62,13 @@ def processRequest(req):
     #res = makeWebhookResult(data)
     #return res
 
-#def returnNDC(rxcui):
+def returnNDC(rxcui):
+	url = "https://rxnav.nlm.nih.gov/REST/ndcproperties.json?id=" + rxcui
+	result = (requests.get(url)).text
+	lhs, rhs = result.split("ndc9\": \"",1)
+	lhs, rhs = rhs.split("\",\"ndc10",1)
+	ndc = lhs
+	return ndc;
 
 def returnRXCUI(req):
 	baseurl = "https://rxnav.nlm.nih.gov/REST/approximateTerm.json?"
@@ -73,12 +80,6 @@ def returnRXCUI(req):
 	lhs, rhs = result.split("rxcui\":\"",1)
 	lhs, rhs = rhs.split("\",\"rxaui",1)
 	rxcui = lhs
-	#rxcui = result['0']
-	#approximateGroup = result.get('approximateGroup')
-	#candidate = approximateGroup.get('candidate')
-	#rxcui = candidate.get('rxcui')
-	#makeWebhookResult???
-	#rxcui = "hello"
 	return rxcui;
 
 #def returnInteractions(rxcuiList):
