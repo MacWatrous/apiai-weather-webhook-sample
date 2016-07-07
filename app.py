@@ -72,7 +72,7 @@ def returnRXCUI(req):
 	result = requests.get(url)
 	data = result.json()
 	approximateGroup = data.get('approximateGroup')
-	candidate = aprroximateGroup.get('candidate')
+	candidate = approximateGroup.get('candidate')
 	rxcui = candidate.get('rxcui')
 	#makeWebhookResult???
 	#rxcui = url
