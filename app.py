@@ -95,8 +95,8 @@ def returnInquiry(req):
 		print("help!")
 
 	result = result.text
-	#lhs, rhs = result.split("indications_and_usage\":[\"",1)
-	#lhs, rhs = rhs.split("\"],\"set_id\": \"",1)
+	lhs, rhs = result.split("INDICATIONS AND USAGE ",1)
+	lhs, rhs = rhs.split(" ], \"set_id\":",1)
 	inquiry = result
 	return inquiry
 
