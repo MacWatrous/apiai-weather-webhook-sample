@@ -69,7 +69,7 @@ def returnRXCUI(req):
 	parameters = result.get("parameters")
 	drug = parameters.get("drug")
 	url = baseurl + "term=" + drug + "&maxEntries=1"
-	result = (requests.get(url)).json()
+	result = (requests.get(url)).text
 	#rxcui = result['0']
 	#approximateGroup = result.get('approximateGroup')
 	#candidate = approximateGroup.get('candidate')
