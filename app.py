@@ -71,7 +71,7 @@ def returnRXCUI(req):
 	url = baseurl + "term=" + drug + "&maxEntries=1"
 	result = (requests.get(url)).text
 	lhs, rhs = result.split("rxcui\":\"",1)
-	lhs, rhs = rhs.split(",\"rxaui",1)
+	lhs, rhs = rhs.split("\",\"rxaui",1)
 	rxcui = lhs
 	#rxcui = result['0']
 	#approximateGroup = result.get('approximateGroup')
