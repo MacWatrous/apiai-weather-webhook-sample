@@ -66,12 +66,12 @@ def returnRXCUI(req):
 	parameters = result.get("parameters")
 	drug = parameters.get("drug")
 	url = baseurl + "term=" + drug + "&maxEntries=0"
-	#result = urllib.urlopen(url)
-	#data = json.loads(result)
-	#approximateGroup = data.get('approximateGroup')
-	#candidate = aprroximateGroup.get('candidate')
-	#rxcui = candidate.get('rxcui')
-	#makeWebhookResult???
+	result = requests.get(url)
+	data = result.json()
+	approximateGroup = data.get('approximateGroup')
+	candidate = aprroximateGroup.get('candidate')
+	rxcui = candidate.get('rxcui')
+	makeWebhookResult???
 	rxcui = url
 	return rxcui;
 
