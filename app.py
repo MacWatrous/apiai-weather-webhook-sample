@@ -72,7 +72,7 @@ def returnRXCUI(req):
 	#candidate = aprroximateGroup.get('candidate')
 	#rxcui = candidate.get('rxcui')
 	#makeWebhookResult???
-	rxcui = "hello"
+	rxcui = url
 	return rxcui;
 
 #def returnInteractions(rxcuiList):
