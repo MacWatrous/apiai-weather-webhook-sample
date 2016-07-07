@@ -32,7 +32,7 @@ def processRequest(req):
     #if req.get("result").get("action") != "yahooWeatherForecast":
         #return {}
 
-    if req.get("result").get("action") == "drugInquiry":
+    #if req.get("result").get("action") == "drugInquiry":
     	rxcui = returnRXCUI(req)
     	speech = rxcui
     	return {
@@ -48,15 +48,16 @@ def processRequest(req):
     #	baseurl = "https://rxnav.nlm.nih.gov/REST/"
     #else: 
     #	return {}
-    baseurl = "https://query.yahooapis.com/v1/public/yql?"
-    yql_query = makeYqlQuery(req)
-    if yql_query is None:
-        return {}
-    yql_url = baseurl + urllib.urlencode({'q': yql_query}) + "&format=json"
-    result = urllib.urlopen(yql_url).read()
-    data = json.loads(result)
-    res = makeWebhookResult(data)
-    return res
+    #yahoo stuff
+    #baseurl = "https://query.yahooapis.com/v1/public/yql?"
+    #yql_query = makeYqlQuery(req)
+    #if yql_query is None:
+    #    return {}
+    #yql_url = baseurl + urllib.urlencode({'q': yql_query}) + "&format=json"
+    #result = urllib.urlopen(yql_url).read()
+    #data = json.loads(result)
+    #res = makeWebhookResult(data)
+    #return res
 
 #def returnNDC(rxcui):
 
