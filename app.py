@@ -33,7 +33,7 @@ def processRequest(req):
     #if req.get("result").get("action") != "yahooWeatherForecast":
         #return {}
 
-    if req.get("result").get("action") is "drugInquiry":
+    if req.get("result").get("action") == "drugInquiry":
     	#rxcui = returnRXCUI(req)
     	inquiry = returnInquiry(req)
     	speech = inquiry
@@ -89,7 +89,7 @@ def returnInquiry(req):
 	drug = parameters.get("drug")
 	url = baseurl + "generic_name:\"" + drug + "\""
 	result = requests.get(url)
-	if result.status_code is 404:
+	if result.status_code == 404:
 		url = baseurl + "brand_name:\"" + drug + "\""
 		result = (requests.get(url))
 
