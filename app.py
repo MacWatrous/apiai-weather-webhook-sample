@@ -35,7 +35,7 @@ def processRequest(req):
 
     if req.get("result").get("action") == "drugInquiry":
     	rxcui = returnRXCUI(req)
-    	inquiry = returnInquiry(rxcui)
+    	inquiry = returnInquiry(req)
     	speech = inquiry
     	return {
     		"speech": speech,
@@ -82,13 +82,22 @@ def returnRXCUI(req):
 	rxcui = lhs
 	return rxcui;
 
-def returnInquiry(rxcui):
-	url = "https://rxnav.nlm.nih.gov/REST/ndcproperties.json?id=" + rxcui
-	result = (requests.get(url)).text
+def returnInquiry(req):
+	baseurl = "https://api.fda.gov/drug/label.json?search=openfda."
+	result = req.get("result")
+	parameters = result.get("parameters")
+	drug = parameters.get("drug")
+	url = baseurl + "generic_name:\"" + drug + "\""
+	result = (requests.get(url))
+	if result.status_code == 404:
+		url = baseurl + "brand_name:\"" + drug + "\""
+		result = (requests.get(url))
+
+	result = result.text
 	lhs, rhs = result.split("indications_and_usage\":[\"",1)
 	lhs, rhs = rhs.split("\"],\"set_id\": \"",1)
-	ndc = lhs
-	return ndc;
+	inquiry = lhs
+	return inquiry
 
 #def returnInteractions(rxcuiList):
 
