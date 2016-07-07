@@ -33,7 +33,7 @@ def processRequest(req):
     #if req.get("result").get("action") != "yahooWeatherForecast":
         #return {}
 
-    #if req.get("result").get("action") == "drugInquiry":
+    if req.get("result").get("action") == "drugInquiry":
     	rxcui = returnRXCUI(req)
     	speech = rxcui
     	return {
@@ -47,8 +47,8 @@ def processRequest(req):
 
     #else if req.get("result").get("action") == "drugInteractions":
     #	baseurl = "https://rxnav.nlm.nih.gov/REST/"
-    #else: 
-    #	return {}
+    else: 
+    	return {}
 
     #yahoo stuff
     #baseurl = "https://query.yahooapis.com/v1/public/yql?"
