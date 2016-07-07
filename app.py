@@ -34,7 +34,7 @@ def processRequest(req):
         #return {}
 
     if req.get("result").get("action") == "drugInquiry":
-    	rxcui = returnRXCUI(req)
+    	#rxcui = returnRXCUI(req)
     	inquiry = returnInquiry(req)
     	speech = inquiry
     	return {
@@ -62,25 +62,25 @@ def processRequest(req):
     #res = makeWebhookResult(data)
     #return res
 
-def returnNDC(rxcui):
-	url = "https://rxnav.nlm.nih.gov/REST/ndcproperties.json?id=" + rxcui
-	result = (requests.get(url)).text
-	lhs, rhs = result.split("ndc9\": \"",1)
-	lhs, rhs = rhs.split("\",\"ndc10",1)
-	ndc = lhs
-	return ndc;
+# def returnNDC(rxcui):
+# 	url = "https://rxnav.nlm.nih.gov/REST/ndcproperties.json?id=" + rxcui
+# 	result = (requests.get(url)).text
+# 	lhs, rhs = result.split("ndc9\": \"",1)
+# 	lhs, rhs = rhs.split("\",\"ndc10",1)
+# 	ndc = lhs
+# 	return ndc;
 
-def returnRXCUI(req):
-	baseurl = "https://rxnav.nlm.nih.gov/REST/approximateTerm.json?"
-	result = req.get("result")
-	parameters = result.get("parameters")
-	drug = parameters.get("drug")
-	url = baseurl + "term=" + drug + "&maxEntries=1"
-	result = (requests.get(url)).text
-	lhs, rhs = result.split("rxcui\":\"",1)
-	lhs, rhs = rhs.split("\",\"rxaui",1)
-	rxcui = lhs
-	return rxcui;
+# def returnRXCUI(req):
+# 	baseurl = "https://rxnav.nlm.nih.gov/REST/approximateTerm.json?"
+# 	result = req.get("result")
+# 	parameters = result.get("parameters")
+# 	drug = parameters.get("drug")
+# 	url = baseurl + "term=" + drug + "&maxEntries=1"
+# 	result = (requests.get(url)).text
+# 	lhs, rhs = result.split("rxcui\":\"",1)
+# 	lhs, rhs = rhs.split("\",\"rxaui",1)
+# 	rxcui = lhs
+# 	return rxcui;
 
 def returnInquiry(req):
 	baseurl = "https://api.fda.gov/drug/label.json?search=openfda."
