@@ -72,7 +72,7 @@ def returnRXCUI(req):
 	result = (requests.get(url)).text
 	lhs, rhs = result.split("rxcui\":\"",1)
 	lhs, rhs = rhs.split(",\"rxaui",1)
-	rxcui = rhs
+	rxcui = lhs
 	#rxcui = result['0']
 	#approximateGroup = result.get('approximateGroup')
 	#candidate = approximateGroup.get('candidate')
