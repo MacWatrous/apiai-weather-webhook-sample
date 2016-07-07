@@ -35,8 +35,8 @@ def processRequest(req):
 
     if req.get("result").get("action") == "drugInquiry":
     	rxcui = returnRXCUI(req)
-    	ndc = returnNDC(rxcui)
-    	speech = ndc
+    	inquiry = returnInquiry(rxcui)
+    	speech = inquiry
     	return {
     		"speech": speech,
        		"displayText": speech,
@@ -81,6 +81,14 @@ def returnRXCUI(req):
 	lhs, rhs = rhs.split("\",\"rxaui",1)
 	rxcui = lhs
 	return rxcui;
+
+def returnInquiry(rxcui):
+	url = "https://rxnav.nlm.nih.gov/REST/ndcproperties.json?id=" + rxcui
+	result = (requests.get(url)).text
+	lhs, rhs = result.split("indications_and_usage\":[\"",1)
+	lhs, rhs = rhs.split("\"],\"set_id\": \"",1)
+	ndc = lhs
+	return ndc;
 
 #def returnInteractions(rxcuiList):
 
