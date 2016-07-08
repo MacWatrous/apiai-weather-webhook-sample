@@ -44,6 +44,18 @@ def processRequest(req):
         	# "contextOut": [],
         	"source": "apiai-weather-webhook-sample"
     	}
+
+    if req.get("result").get("action") == "drugInteractions":
+    	#rxcui = returnRXCUI(req)
+    	inquiry = returnInteractions(req)
+    	speech = inquiry
+    	return {
+    		"speech": speech,
+       		"displayText": speech,
+        	# "data": data,
+        	# "contextOut": [],
+        	"source": "apiai-weather-webhook-sample"
+    	}
     	#ndc = returnNDC(rxcui)
 
     #else if req.get("result").get("action") == "drugInteractions":
@@ -100,7 +112,46 @@ def returnInquiry(req):
 	inquiry = lhs
 	return inquiry
 
-#def returnInteractions(rxcuiList):
+def returnInteractions(rxcuiList):
+	baseurl = "https://api.fda.gov/drug/label.json?search=openfda."
+	result = req.get("result")
+	parameters = result.get("parameters")
+	drug = parameters.get("drug")
+	drug2 = parameters.get("drug1")
+
+	url = baseurl + "generic_name:\"" + drug + "\""
+	result = requests.get(url)
+	if result.status_code != 200:
+		url = baseurl + "brand_name:\"" + drug + "\""
+		result = (requests.get(url))
+		print("help!")
+	result = result.text
+
+	url2 = baseurl + "generic_name:\"" + drug2 + "\""
+	result2 = requests.get(url2)
+	if result2.status_code != 200:
+		url2 = baseurl + "brand_name:\"" + drug2 + "\""
+		result2 = (requests.get(url2))
+		print("help!2")
+	result2 = result2.text
+
+	lhs, rhs = result.split("rxcui\":",1)
+	lhs, rhs = rhs.split("\"",1)
+	rxcui = lhs
+
+	lhs, rhs = result2.split("rxcui\":",1)
+	lhs, rhs = rhs.split("\"",1)
+	rxcui2 = lhs
+
+	baseurl2 = "https://rxnav.nlm.nih.gov/REST/interaction/list.json?rxcuis="
+ 	url = baseurl + rxcui + "+" + rxcui2
+ 	result3 = (requests.get(url)).text
+
+	result3 = result3.text
+	lhs, rhs = result.split("description\": \"",1)
+	lhs, rhs = rhs.split("\"",1)
+	interaction = lhs
+	return interaction
 
 def makeYqlQuery(req):
     result = req.get("result")
