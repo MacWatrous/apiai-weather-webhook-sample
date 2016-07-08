@@ -129,7 +129,6 @@ def returnInteractions(req):
 	result = req.get("result")
 	parameters = result.get("parameters")
 	drug = parameters.get("drug")
-	drug2 = parameters.get("drug1")
 
 	url = baseurl + "generic_name:\"" + drug + "\""
 	result = requests.get(url)
@@ -139,23 +138,27 @@ def returnInteractions(req):
 		print("help!")
 	result = result.text
 
-	url2 = baseurl + "generic_name:\"" + drug2 + "\""
-	result2 = requests.get(url2)
-	if result2.status_code != 200:
-		url2 = baseurl + "brand_name:\"" + drug2 + "\""
-		result2 = (requests.get(url2))
-		print("help!2")
-	result2 = result2.text
+	if false != parameters.get("drug1", "false"):
+		result2 = parameters.get("drug1")
+		url2 = baseurl + "generic_name:\"" + drug2 + "\""
+		result2 = requests.get(url2)
+		if result2.status_code != 200:
+			url2 = baseurl + "brand_name:\"" + drug2 + "\""
+			result2 = (requests.get(url2))
+			print("help!2")
+		result2 = result2.text
+		lhs, rhs = result2.split("rxcui",1)
+		rhs = rhs[16:]
+		rhs = rhs[:6]
+		rxcui2 = rhs
+	
+	else:
+		rxcui2 = 448
 
 	lhs, rhs = result.split("rxcui",1)
 	rhs = rhs[16:]
 	rhs = rhs[:6]
 	rxcui = rhs
-
-	lhs, rhs = result2.split("rxcui",1)
-	rhs = rhs[16:]
-	rhs = rhs[:6]
-	rxcui2 = rhs
 
 	baseurl2 = "https://rxnav.nlm.nih.gov/REST/interaction/list.json?rxcuis="
  	url3 = baseurl2 + rxcui + "+" + rxcui2
@@ -173,7 +176,6 @@ def returnInteractionsPrior(req):
 	baseurl = "https://api.fda.gov/drug/label.json?search=openfda."
 	result = req.get("result")
 	parameters = result.get("parameters")
-	drug2 = parameters.get("drug1")
 	drug = parameters.get("drug")
 
 	url = baseurl + "generic_name:\"" + drug + "\""
@@ -184,23 +186,27 @@ def returnInteractionsPrior(req):
 		print("help!")
 	result = result.text
 
-	url2 = baseurl + "generic_name:\"" + drug2 + "\""
-	result2 = requests.get(url2)
-	if result2.status_code != 200:
-		url2 = baseurl + "brand_name:\"" + drug2 + "\""
-		result2 = (requests.get(url2))
-		print("help!2")
-	result2 = result2.text
+	if false != parameters.get("drug1", "false"):
+		result2 = parameters.get("drug1")
+		url2 = baseurl + "generic_name:\"" + drug2 + "\""
+		result2 = requests.get(url2)
+		if result2.status_code != 200:
+			url2 = baseurl + "brand_name:\"" + drug2 + "\""
+			result2 = (requests.get(url2))
+			print("help!2")
+		result2 = result2.text
+		lhs, rhs = result2.split("rxcui",1)
+		rhs = rhs[16:]
+		rhs = rhs[:6]
+		rxcui2 = rhs
+	
+	else:
+		rxcui2 = 448
 
 	lhs, rhs = result.split("rxcui",1)
 	rhs = rhs[16:]
 	rhs = rhs[:6]
 	rxcui = rhs
-
-	lhs, rhs = result2.split("rxcui",1)
-	rhs = rhs[16:]
-	rhs = rhs[:6]
-	rxcui2 = rhs
 
 	baseurl2 = "https://rxnav.nlm.nih.gov/REST/interaction/list.json?rxcuis="
  	url3 = baseurl2 + rxcui + "+" + rxcui2
