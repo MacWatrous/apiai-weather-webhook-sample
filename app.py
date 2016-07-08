@@ -136,7 +136,7 @@ def returnInteractions(req):
 	result2 = result2.text
 
 	lhs, rhs = result.split("rxcui",1)
-	#lhs, rhs = rhs.split("\"",1)
+	lhs, rhs = rhs.split("spl_id",1)
 	rxcui = rhs
 
 	#lhs, rhs = result2.split("rxcui",1)
