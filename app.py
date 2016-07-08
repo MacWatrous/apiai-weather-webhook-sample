@@ -138,7 +138,7 @@ def returnInteractions(req):
 		print("help!")
 	result = result.text
 
-	if false != parameters.get("drug1", "false"):
+	if "false" != parameters.get("drug1", "false"):
 		result2 = parameters.get("drug1")
 		url2 = baseurl + "generic_name:\"" + drug2 + "\""
 		result2 = requests.get(url2)
@@ -186,7 +186,7 @@ def returnInteractionsPrior(req):
 		print("help!")
 	result = result.text
 
-	if false != parameters.get("drug1", "false"):
+	if "false" != parameters.get("drug1", "false"):
 		result2 = parameters.get("drug1")
 		url2 = baseurl + "generic_name:\"" + drug2 + "\""
 		result2 = requests.get(url2)
