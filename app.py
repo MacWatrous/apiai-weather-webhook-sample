@@ -156,7 +156,7 @@ def returnInteractions(req):
 		rhs = rhs[:6]
 		rxcui2 = rhs
 	else:
-		rxcui2 = 448
+		rxcui2 = "448"
 		print("there's alcohol here")
 
 	baseurl2 = "https://rxnav.nlm.nih.gov/REST/interaction/list.json?rxcuis="
@@ -204,7 +204,7 @@ def returnInteractionsPrior(req):
 		rxcui2 = rhs
 	
 	else:
-		rxcui2 = 448
+		rxcui2 = "448"
 
 	
 
