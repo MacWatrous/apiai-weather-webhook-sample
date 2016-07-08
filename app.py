@@ -173,10 +173,8 @@ def returnInteractionsPrior(req):
 	baseurl = "https://api.fda.gov/drug/label.json?search=openfda."
 	result = req.get("result")
 	parameters = result.get("parameters")
-	drug2 = parameters.get("drug")
-	contexts = result.get("contexts")
-	conParam = contexts.get("parameters")
-	drug = conParam.get("drug")
+	drug2 = parameters.get("drug1")
+	drug = parameters.get("drug")
 
 	url = baseurl + "generic_name:\"" + drug + "\""
 	result = requests.get(url)
