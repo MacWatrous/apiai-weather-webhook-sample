@@ -107,9 +107,9 @@ def returnInquiry(req):
 		print("help!")
 
 	result = result.text
-	#lhs, rhs = result.split("INDICATIONS AND USAGE ",1)
-	#lhs, rhs = rhs.split("\"",1)
-	inquiry = result
+	lhs, rhs = result.split("INDICATIONS_AND_USAGE ",1)
+	lhs, rhs = rhs.split("\"",1)
+	inquiry = lhs
 	return inquiry
 
 def returnInteractions(req):
