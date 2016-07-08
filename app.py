@@ -148,10 +148,11 @@ def returnInteractions(req):
 	baseurl2 = "https://rxnav.nlm.nih.gov/REST/interaction/list.json?rxcuis="
  	url3 = baseurl2 + rxcui + "+" + rxcui2
  	result3 = requests.get(url3)
+	
 	result3 = result3.text
-	# lhs, rhs = result3.split("description",1)
-	# lhs, rhs = rhs.split("\"",1)
-	# interaction = lhs
+	lhs, rhs = result3.split("description\":\"",1)
+	lhs, rhs = rhs.split("\"",1)
+	interaction = lhs
 	return result3
 
 def makeYqlQuery(req):
