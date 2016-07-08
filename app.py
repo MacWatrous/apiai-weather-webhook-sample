@@ -148,9 +148,9 @@ def returnInteractions(req):
  	result3 = (requests.get(url)).text
 
 	result3 = result3.text
-	lhs, rhs = result.split("description\": \"",1)
-	lhs, rhs = rhs.split("\"",1)
-	interaction = lhs
+	#lhs, rhs = result.split("description\": \"",1)
+	#lhs, rhs = rhs.split("\"",1)
+	interaction = result3
 	return interaction
 
 def makeYqlQuery(req):
