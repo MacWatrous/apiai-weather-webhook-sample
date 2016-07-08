@@ -169,7 +169,7 @@ def returnInteractions(req):
 		return interaction
 	return {}
 
-def returnInteractionsPrior(req)
+def returnInteractionsPrior(req):
 	baseurl = "https://api.fda.gov/drug/label.json?search=openfda."
 	result = req.get("result")
 	parameters = result.get("parameters")
