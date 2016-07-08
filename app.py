@@ -135,20 +135,20 @@ def returnInteractions(req):
 		print("help!2")
 	result2 = result2.text
 
-	lhs, rhs = result.split("rxcui\":",1)
+	lhs, rhs = result.split("rxcui ",1)
 	lhs, rhs = rhs.split("\"",1)
 	rxcui = lhs
 
-	lhs, rhs = result2.split("rxcui\":",1)
+	lhs, rhs = result2.split("rxcui ",1)
 	lhs, rhs = rhs.split("\"",1)
 	rxcui2 = lhs
 
 	baseurl2 = "https://rxnav.nlm.nih.gov/REST/interaction/list.json?rxcuis="
  	url3 = baseurl2 + rxcui + "+" + rxcui2
- 	result3 = (requests.get(url3))
+ 	result3 = requests.get(url3)
 
 	result3 = result3.text
-	lhs, rhs = result3.split("description\": \"",1)
+	lhs, rhs = result3.split("description",1)
 	lhs, rhs = rhs.split("\"",1)
 	interaction = lhs
 	return interaction
