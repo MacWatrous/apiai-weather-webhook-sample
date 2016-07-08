@@ -112,7 +112,7 @@ def returnInquiry(req):
 	inquiry = lhs
 	return inquiry
 
-def returnInteractions(rxcuiList):
+def returnInteractions(req):
 	baseurl = "https://api.fda.gov/drug/label.json?search=openfda."
 	result = req.get("result")
 	parameters = result.get("parameters")
@@ -148,8 +148,8 @@ def returnInteractions(rxcuiList):
  	result3 = (requests.get(url)).text
 
 	result3 = result3.text
-	#lhs, rhs = result.split("description\": \"",1)
-	#lhs, rhs = rhs.split("\"",1)
+	lhs, rhs = result.split("description\": \"",1)
+	lhs, rhs = rhs.split("\"",1)
 	interaction = lhs
 	return interaction
 
