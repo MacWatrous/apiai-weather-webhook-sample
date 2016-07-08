@@ -142,7 +142,7 @@ def returnInteractions(req):
 	rhs = rhs[:6]
 	rxcui = rhs
 
-	if "falsey" != parameters.get("drug1", "falsey"):
+	if "true" == parameters.get("alcohol", "true"):
 		drug2 = parameters.get("drug1")
 		url2 = baseurl + "generic_name:\"" + drug2 + "\""
 		result2 = requests.get(url2)
@@ -188,7 +188,7 @@ def returnInteractionsPrior(req):
 	rhs = rhs[:6]
 	rxcui = rhs
 
-	if "falsey" != parameters.get("drug1", "falsey"):
+	if "true" == parameters.get("alcohol", "true"):
 		drug2 = parameters.get("drug1")
 		url2 = baseurl + "generic_name:\"" + drug2 + "\""
 		result2 = requests.get(url2)
