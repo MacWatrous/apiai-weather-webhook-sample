@@ -137,8 +137,9 @@ def returnInteractions(req):
 
 	lhs, rhs = result.split("rxcui",1)
 	rhs = rhs[7:]
-	lhs, rhs = rhs.split("\"",1)
-	rxcui = lhs
+	rhs = rhs[:6]
+	#lhs, rhs = rhs.split("\"",1)
+	rxcui = rhs
 
 	#lhs, rhs = result2.split("rxcui \": [ \"",1)
 	#lhs, rhs = rhs.split("\"",1)
