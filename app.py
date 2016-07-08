@@ -135,9 +135,9 @@ def returnInteractions(req):
 		print("help!2")
 	result2 = result2.text
 
-	#lhs, rhs = result.split("rxcui",1)
-	#lhs, rhs = rhs.split("\"",1)
-	#rxcui = lhs
+	lhs, rhs = result.split("rxcui ",1)
+	lhs, rhs = rhs.split("\"",1)
+	rxcui = lhs
 
 	#lhs, rhs = result2.split("rxcui",1)
 	#lhs, rhs = rhs.split("\"",1)
@@ -151,7 +151,7 @@ def returnInteractions(req):
 	# lhs, rhs = result3.split("description",1)
 	# lhs, rhs = rhs.split("\"",1)
 	# interaction = lhs
-	return result2
+	return rxcui
 
 def makeYqlQuery(req):
     result = req.get("result")
