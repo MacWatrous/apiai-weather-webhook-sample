@@ -144,7 +144,7 @@ def returnInteractions(req):
 	rxcui2 = lhs
 
 	baseurl2 = "https://rxnav.nlm.nih.gov/REST/interaction/list.json?rxcuis="
- 	url3 = baseurl + rxcui + "+" + rxcui2
+ 	url3 = baseurl2 + rxcui + "+" + rxcui2
  	result3 = (requests.get(url3))
 
 	result3 = result3.text
