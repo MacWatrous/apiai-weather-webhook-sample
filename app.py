@@ -135,11 +135,11 @@ def returnInteractions(req):
 		print("help!2")
 	result2 = result2.text
 
-	lhs, rhs = result.split("rxcui",1)
-	lhs, rhs = rhs.split("spl_id",1)
+	lhs, rhs = result.split("rxcui \": [ \"",1)
+	lhs, rhs = rhs.split("\"",1)
 	rxcui = lhs
 
-	#lhs, rhs = result2.split("rxcui",1)
+	#lhs, rhs = result2.split("rxcui \": [ \"",1)
 	#lhs, rhs = rhs.split("\"",1)
 	#rxcui2 = lhs
 
