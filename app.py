@@ -137,9 +137,13 @@ def returnInteractions(req):
 		result = (requests.get(url))
 		print("help!")
 	result = result.text
+	lhs, rhs = result.split("rxcui",1)
+	rhs = rhs[16:]
+	rhs = rhs[:6]
+	rxcui = rhs
 
-	if "false" != parameters.get("drug1", "false"):
-		result2 = parameters.get("drug1")
+	if "falsey" != parameters.get("drug1", "falsey"):
+		drug2 = parameters.get("drug1")
 		url2 = baseurl + "generic_name:\"" + drug2 + "\""
 		result2 = requests.get(url2)
 		if result2.status_code != 200:
@@ -151,14 +155,8 @@ def returnInteractions(req):
 		rhs = rhs[16:]
 		rhs = rhs[:6]
 		rxcui2 = rhs
-	
 	else:
 		rxcui2 = 448
-
-	lhs, rhs = result.split("rxcui",1)
-	rhs = rhs[16:]
-	rhs = rhs[:6]
-	rxcui = rhs
 
 	baseurl2 = "https://rxnav.nlm.nih.gov/REST/interaction/list.json?rxcuis="
  	url3 = baseurl2 + rxcui + "+" + rxcui2
@@ -185,9 +183,13 @@ def returnInteractionsPrior(req):
 		result = (requests.get(url))
 		print("help!")
 	result = result.text
+	lhs, rhs = result.split("rxcui",1)
+	rhs = rhs[16:]
+	rhs = rhs[:6]
+	rxcui = rhs
 
-	if "false" != parameters.get("drug1", "false"):
-		result2 = parameters.get("drug1")
+	if "falsey" != parameters.get("drug1", "falsey"):
+		drug2 = parameters.get("drug1")
 		url2 = baseurl + "generic_name:\"" + drug2 + "\""
 		result2 = requests.get(url2)
 		if result2.status_code != 200:
@@ -203,10 +205,7 @@ def returnInteractionsPrior(req):
 	else:
 		rxcui2 = 448
 
-	lhs, rhs = result.split("rxcui",1)
-	rhs = rhs[16:]
-	rhs = rhs[:6]
-	rxcui = rhs
+	
 
 	baseurl2 = "https://rxnav.nlm.nih.gov/REST/interaction/list.json?rxcuis="
  	url3 = baseurl2 + rxcui + "+" + rxcui2
