@@ -153,7 +153,7 @@ def returnInteractions(req):
 	lhs, rhs = result3.split("description\":\"",1)
 	lhs, rhs = rhs.split("\"",1)
 	interaction = lhs
-	return result3
+	return interaction
 
 def makeYqlQuery(req):
     result = req.get("result")
