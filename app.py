@@ -117,10 +117,15 @@ def returnInquiry(req):
 		url = baseurl + "brand_name:\"" + drug + "\""
 		result = (requests.get(url))
 		print("help!")
+		result = result.text
+		lhs, rhs = result.split("INDICATIONS AND USAGE ",1)
+		lhs, rhs = rhs.split(".",1)
+		inquiry = lhs
+		return inquiry
 
 	result = result.text
 	lhs, rhs = result.split("indications_and_usage\": [\n        \"",1)
-	lhs, rhs = rhs.split("\"",1)
+	lhs, rhs = rhs.split(".",1)
 	inquiry = lhs
 	return inquiry
 
@@ -169,7 +174,7 @@ def returnInteractions(req):
 		lhs, rhs = rhs.split("\"",1)
 		interaction = lhs
 		return interaction
-	return {}
+	return "There is no interaction between these drugs!"
 
 def returnInteractionsPrior(req):
 	baseurl = "https://api.fda.gov/drug/label.json?search=openfda."
@@ -206,8 +211,6 @@ def returnInteractionsPrior(req):
 	else:
 		rxcui2 = "448"
 
-	
-
 	baseurl2 = "https://rxnav.nlm.nih.gov/REST/interaction/list.json?rxcuis="
  	url3 = baseurl2 + rxcui + "+" + rxcui2
  	result3 = requests.get(url3)
@@ -218,7 +221,7 @@ def returnInteractionsPrior(req):
 		lhs, rhs = rhs.split("\"",1)
 		interaction = lhs
 		return interaction
-	return {}
+	return "Looks like there is no interaction between these drugs."
 
 def makeYqlQuery(req):
     result = req.get("result")
