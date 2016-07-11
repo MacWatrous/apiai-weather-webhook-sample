@@ -145,7 +145,7 @@ def returnRoute(req):
 	lhs, rhs = rhs.split("\"",1)
 	inquiry = lhs
 	inquiry = inquiry.lower()
-	return inquiry
+	return "The most typical route of administration we found for " + drug + "is " + inquiry + "."
 
 
 def returnInteractions(req):
