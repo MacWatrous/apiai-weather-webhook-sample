@@ -34,7 +34,6 @@ def processRequest(req):
         #return {}
 
     if req.get("result").get("action") == "drugInquiry":
-    	#rxcui = returnRXCUI(req)
     	inquiry = returnInquiry(req)
     	speech = inquiry
     	return {
@@ -46,7 +45,6 @@ def processRequest(req):
     	}
 
     if req.get("result").get("action") == "drugInteractions":
-    	#rxcui = returnRXCUI(req)
     	inquiry = returnInteractions(req)
     	speech = inquiry
     	return {
@@ -58,7 +56,6 @@ def processRequest(req):
     	}
 
     if req.get("result").get("action") == "drugInteractionsPrior":
-    	#rxcui = returnRXCUI(req)
     	inquiry = returnInteractionsPrior(req)
     	speech = inquiry
     	return {
@@ -68,10 +65,16 @@ def processRequest(req):
         	# "contextOut": [],
         	"source": "apiai-weather-webhook-sample"
     	}
-    	#ndc = returnNDC(rxcui)
-
-    #else if req.get("result").get("action") == "drugInteractions":
-    #	baseurl = "https://rxnav.nlm.nih.gov/REST/"
+    if req.get("result").get("action") == "drugRoute":
+    	inquiry = returnRoute(req)
+    	speech = inquiry
+    	return {
+    		"speech": speech,
+       		"displayText": speech,
+        	# "data": data,
+        	# "contextOut": [],
+        	"source": "apiai-weather-webhook-sample"
+    	}
     else: 
     	return {}
 
@@ -128,6 +131,22 @@ def returnInquiry(req):
 	lhs, rhs = rhs.split(".",1)
 	inquiry = lhs
 	return inquiry
+
+def returnRoute(req):
+	baseurl = "https://api.fda.gov/drug/label.json?search="
+	result = req.get("result")
+	parameters = result.get("parameters")
+	drug = parameters.get("drug")
+	url = baseurl + drug + "&count=openfda.route.exact"
+	result = requests.get(url)
+
+	result = result.text
+	lhs, rhs = result.split("term\": \"",1)
+	lhs, rhs = rhs.split("\"",1)
+	inquiry = lhs
+	inquiry = [x.lower() for x in inquiry]
+	return inquiry
+
 
 def returnInteractions(req):
 	baseurl = "https://api.fda.gov/drug/label.json?search=openfda."
