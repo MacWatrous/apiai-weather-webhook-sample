@@ -191,11 +191,11 @@ def returnInteractions(req):
  	result3 = requests.get(url3)
 	result3 = result3.text
 
-	if "description" in result3:
-		lhs, rhs = result3.split("description",1)
+	if "severity" in result3:
+		lhs, rhs = result3.split("description\":\"",1)
 		lhs, rhs = rhs.split("\"",1)
-		array = re.findall(r"\w+",rhs)
-		return array[0]
+		interaction = lhs
+		return interaction
 	return "There is no interaction between these drugs!"
 
 def returnInteractionsPrior(req):
@@ -238,7 +238,7 @@ def returnInteractionsPrior(req):
  	result3 = requests.get(url3)
 	result3 = result3.text
 
-	if "description" in result3:
+	if "severity" in result3:
 		lhs, rhs = result3.split("description\":\"",1)
 		lhs, rhs = rhs.split("\"",1)
 		interaction = lhs
