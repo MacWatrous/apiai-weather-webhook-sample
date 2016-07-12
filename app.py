@@ -172,7 +172,7 @@ def returnInteractions(req):
 	if "true" == parameters.get("alcohol", "true"):
 		drug2 = parameters.get("drug1")
 		url2 = baseurl + "generic_name:\"" + drug2 + "\""
-		result2 = requests.get(url2)`
+		result2 = requests.get(url2)
 		if result2.status_code != 200:
 			url2 = baseurl + "brand_name:\"" + drug2 + "\""
 			result2 = (requests.get(url2))
