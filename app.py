@@ -4,6 +4,7 @@ import urllib
 import json
 import os
 import requests
+import re
 
 from flask import Flask
 from flask import request
@@ -165,8 +166,8 @@ def returnInteractions(req):
 	result = result.text
 	lhs, rhs = result.split("rxcui",1)
 	rhs = rhs[16:]
-	lhs, rhs = rhs.split("\\\"",1)
-	rxcui = lhs
+	array = re.findall(r"\w+",rhs)
+	rxcui = array[0]
 
 	# if "true" == parameters.get("alcohol", "true"):
 	# 	drug2 = parameters.get("drug1")
