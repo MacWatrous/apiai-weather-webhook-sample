@@ -166,7 +166,7 @@ def returnInteractions(req):
 	lhs, rhs = result.split("rxcui",1)
 	rhs = rhs[16:]
 	lhs, rhs = rhs.split("\\",1)
-	rxcui = rhs
+	rxcui = lhs
 
 	# if "true" == parameters.get("alcohol", "true"):
 	# 	drug2 = parameters.get("drug1")
