@@ -122,14 +122,14 @@ def returnInquiry(req):
 		print("help!")
 		result = result.text
 		lhs, rhs = result.split("INDICATIONS AND USAGE ",1)
-		rhs.replace('\"',".")
+		rhs = rhs.replace('\"',".")
 		lhs, rhs = rhs.split(".",1)
 		inquiry = lhs
 		return inquiry
 
 	result = result.text
 	lhs, rhs = result.split("indications_and_usage\": [\n        \"",1)
-	rhs.replace('\"',".")
+	rhs = rhs.replace('\"',".")
 	lhs, rhs = rhs.split(".",1)
 	inquiry = lhs
 	return inquiry
