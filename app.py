@@ -128,6 +128,7 @@ def returnInquiry(req):
 
 	result = result.text
 	lhs, rhs = result.split("indications_and_usage\": [\n        \"",1)
+	rhs.replace('\"',".")
 	lhs, rhs = rhs.split(".",1)
 	inquiry = lhs
 	return inquiry
