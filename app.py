@@ -166,8 +166,8 @@ def returnInteractions(req):
 	result = result.text
 	lhs, rhs = result.split("rxcui",1)
 	rhs = rhs[16:]
-	#array = re.findall(r"\w+",rhs)
-	rxcui = rhs
+	array = re.findall(r"\w+",rhs)
+	rxcui = array[0]
 
 	# if "true" == parameters.get("alcohol", "true"):
 	# 	drug2 = parameters.get("drug1")
@@ -187,8 +187,8 @@ def returnInteractions(req):
 	# 	print("there's alcohol here")
 
 	# baseurl2 = "https://rxnav.nlm.nih.gov/REST/interaction/list.json?rxcuis="
- # 	url3 = baseurl2 + rxcui + "+" + rxcui2
- # 	result3 = requests.get(url3)
+ 	# url3 = baseurl2 + rxcui + "+" + rxcui2
+ 	# result3 = requests.get(url3)
 	# result3 = result3.text
 
 	# if "description" in result3:
