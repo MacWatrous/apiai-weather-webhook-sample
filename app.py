@@ -122,7 +122,7 @@ def returnInquiry(req):
 		result = (requests.get(url))
 		print("help!")
 		result = result.text
-		lhs, rhs = result.split("INDICATIONS AND USAGE ",1)
+		lhs, rhs = result.split("indications_and_usage\": [\n        \"",1)
 		rhs = rhs.replace('\"',".")
 		lhs, rhs = rhs.split(".",1)
 		inquiry = lhs
