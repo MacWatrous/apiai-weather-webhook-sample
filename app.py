@@ -165,7 +165,7 @@ def returnInteractions(req):
 	result = result.text
 	lhs, rhs = result.split("rxcui",1)
 	rhs = rhs[16:]
-	rhs = rhs[:6]
+	rhs = rhs.split("\"",1)
 	rxcui = rhs
 
 	if "true" == parameters.get("alcohol", "true"):
@@ -179,7 +179,7 @@ def returnInteractions(req):
 		result2 = result2.text
 		lhs, rhs = result2.split("rxcui",1)
 		rhs = rhs[16:]
-		rhs = rhs[:6]
+		rhs = rhs.split("\"",1)
 		rxcui2 = rhs
 	else:
 		rxcui2 = "448"
@@ -212,7 +212,7 @@ def returnInteractionsPrior(req):
 	result = result.text
 	lhs, rhs = result.split("rxcui",1)
 	rhs = rhs[16:]
-	rhs = rhs[:6]
+	rhs = rhs.split("\"",1)
 	rxcui = rhs
 
 	if "true" == parameters.get("alcohol", "true"):
@@ -226,7 +226,7 @@ def returnInteractionsPrior(req):
 		result2 = result2.text
 		lhs, rhs = result2.split("rxcui",1)
 		rhs = rhs[16:]
-		rhs = rhs[:6]
+		rhs = rhs.split("\"",1)
 		rxcui2 = rhs
 	
 	else:
