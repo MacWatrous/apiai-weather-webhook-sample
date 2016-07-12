@@ -179,7 +179,7 @@ def returnInteractions(req):
 		result2 = result2.text
 		lhs, rhs = result2.split("rxcui",1)
 		rhs = rhs[16:]
-		rhs = rhs.split("\"",1)
+		rhs = rhs.split(" ",1)
 		rxcui2 = rhs
 	else:
 		rxcui2 = "448"
