@@ -166,8 +166,8 @@ def returnInteractions(req):
 	result = result.text
 	lhs, rhs = result.split("rxcui",1)
 	rhs = rhs[16:]
-	#array = re.findall(r"\w+",rhs)
-	#rxcui = array[0]
+	array = re.findall(r"\w+",rhs)
+	rxcui = array[0]
 
 	# if "true" == parameters.get("alcohol", "true"):
 	# 	drug2 = parameters.get("drug1")
@@ -196,7 +196,7 @@ def returnInteractions(req):
 	# 	lhs, rhs = rhs.split("\"",1)
 	# 	interaction = lhs
 	# 	return interaction
-	return rhs#"There is no interaction between these drugs!"
+	return rxcui#"There is no interaction between these drugs!"
 
 def returnInteractionsPrior(req):
 	baseurl = "https://api.fda.gov/drug/label.json?search=openfda."
