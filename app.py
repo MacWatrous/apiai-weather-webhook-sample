@@ -9,11 +9,9 @@ import re
 from flask import Flask
 from flask import request
 from flask import make_response
-from app.b_and_e import b_and_e
 
 # Flask app should start in global layout
 app = Flask(__name__)
-app.register_blueprint(b_and_e)
 
 @app.route('/webhook', methods=['POST'])
 def webhook():
