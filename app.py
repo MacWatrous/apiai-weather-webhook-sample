@@ -294,5 +294,5 @@ def makeWebhookResult(data):
 
 
 if __name__ == '__main__':
-    port = int(os.getenv('PORT', 5000))
+    port = int(os.getenv('PORT', 8080))
     app.run(debug=False, port=port, host='0.0.0.0')
