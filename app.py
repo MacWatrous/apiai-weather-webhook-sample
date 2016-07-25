@@ -197,8 +197,8 @@ def returnInteractions(req):
 
         #resultDrug = result3v2['fullInteractionTypeGroup']['fullInteractionType'][0]['interactionPair'][0]['interactionConcept'][0]['minConceptItem']['name']
         #resultDrug2 = result3v2['fullInteractionTypeGroup']['fullInteractionType'][0]['interactionPair'][0]['interactionConcept'][1]['minConceptItem']['name']
-        print(resultDrug)
-        print(resultDrug2)
+        #print(resultDrug)
+        #print(resultDrug2)
         return interaction
     return "There is no interaction between these drugs!"
 
@@ -249,8 +249,8 @@ def returnInteractionsPrior(req):
 
         #resultDrug = result3v2['fullInteractionTypeGroup']['fullInteractionType'][0]['interactionPair'][0]['interactionConcept'][0]['minConceptItem']['name']
         #resultDrug2 = result3v2['fullInteractionTypeGroup']['fullInteractionType'][0]['interactionPair'][0]['interactionConcept'][1]['minConceptItem']['name']
-        print(resultDrug)
-        print(resultDrug2)
+        #print(resultDrug)
+        #print(resultDrug2)
         return interaction
     return "Looks like there is no interaction between these drugs."
 
