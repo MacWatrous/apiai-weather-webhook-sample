@@ -193,6 +193,9 @@ def returnInteractions(req):
     if "severity" in result3:
         if rxcui2 == "448":
             drug2 = "alcohol"
+            temp = drug
+            drug = drug2
+            drug2 = temp
 
         lhs, rhs = result3.split("description\":\"",1)
         lhs, rhs = rhs.split("\"",1)
@@ -256,6 +259,9 @@ def returnInteractionsPrior(req):
     if "severity" in result3:
         if rxcui2 == "448":
             drug2 = "alcohol"
+            temp = drug
+            drug = drug2
+            drug2 = temp
 
         lhs, rhs = result3.split("description\":\"",1)
         lhs, rhs = rhs.split("\"",1)
