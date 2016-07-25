@@ -189,11 +189,17 @@ def returnInteractions(req):
     url3 = baseurl2 + rxcui + "+" + rxcui2
     result3 = requests.get(url3)
     result3 = result3.text
+    result3v2 = json.loads(result3)
 
     if "severity" in result3:
         lhs, rhs = result3.split("description\":\"",1)
         lhs, rhs = rhs.split("\"",1)
         interaction = lhs
+
+        resultDrug = result3v2['fullInteractionTypeGroup']['fullInteractionType'][0]['interactionPair'][0]['interactionConcept'][0]['minConceptItem']['name']
+        resultDrug2 = result3v2['fullInteractionTypeGroup']['fullInteractionType'][0]['interactionPair'][0]['interactionConcept'][1]['minConceptItem']['name']
+        print(resultDrug)
+        print(resultDrug2)
         return interaction
     return "There is no interaction between these drugs!"
 
@@ -236,11 +242,17 @@ def returnInteractionsPrior(req):
     url3 = baseurl2 + rxcui + "+" + rxcui2
     result3 = requests.get(url3)
     result3 = result3.text
+    result3v2 = json.loads(result3)
 
     if "severity" in result3:
         lhs, rhs = result3.split("description\":\"",1)
         lhs, rhs = rhs.split("\"",1)
         interaction = lhs
+
+        resultDrug = result3v2['fullInteractionTypeGroup']['fullInteractionType'][0]['interactionPair'][0]['interactionConcept'][0]['minConceptItem']['name']
+        resultDrug2 = result3v2['fullInteractionTypeGroup']['fullInteractionType'][0]['interactionPair'][0]['interactionConcept'][1]['minConceptItem']['name']
+        print(resultDrug)
+        print(resultDrug2)
         return interaction
     return "Looks like there is no interaction between these drugs."
 
