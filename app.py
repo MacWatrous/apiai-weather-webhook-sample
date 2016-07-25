@@ -200,6 +200,11 @@ def returnInteractions(req):
         resultDrug2 = result3v2['fullInteractionTypeGroup'][0]['fullInteractionType'][0]['interactionPair'][0]['interactionConcept'][1]['minConceptItem']['name']
         print(resultDrug)
         print(resultDrug2)
+
+        index = (interaction.lower()).find(resultDrug.lower())
+        interaction = interaction[:index] + "(" + drug + ") " + interaction[index:]
+        index = (interaction.lower()).find(resultDrug2.lower())
+        interaction = interaction[:index] + "(" + drug2 + ") " + interaction[index:]
         return interaction
     return "There is no interaction between these drugs!"
 
