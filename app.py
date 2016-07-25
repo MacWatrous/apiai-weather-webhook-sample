@@ -191,26 +191,25 @@ def returnInteractions(req):
     result3 = result3v2.text
 
     if "severity" in result3:
-        # if rxcui2 == "448":
-        #     drug2 = "alcohol"
+        if rxcui2 == "448":
+            drug2 = "alcohol"
 
         lhs, rhs = result3.split("description\":\"",1)
         lhs, rhs = rhs.split("\"",1)
         interaction = lhs
-        
-        # print(result3v2.json())
-        # result3v2 = result3v2.json()
-        # resultDrug = result3v2['fullInteractionTypeGroup'][0]['fullInteractionType'][0]['interactionPair'][0]['interactionConcept'][0]['minConceptItem']['name']
-        # if drug2 != alcohol:resultDrug2 = result3v2['fullInteractionTypeGroup'][0]['fullInteractionType'][0]['interactionPair'][0]['interactionConcept'][1]['minConceptItem']['name']
-        # print(resultDrug)
-        # print(resultDrug2)
+        print(result3v2.json())
+        result3v2 = result3v2.json()
+        resultDrug = result3v2['fullInteractionTypeGroup'][0]['fullInteractionType'][0]['interactionPair'][0]['interactionConcept'][0]['minConceptItem']['name']
+        resultDrug2 = result3v2['fullInteractionTypeGroup'][0]['fullInteractionType'][0]['interactionPair'][0]['interactionConcept'][1]['minConceptItem']['name']
+        print(resultDrug)
+        print(resultDrug2)
 
-        # index = (interaction.lower()).find(resultDrug.lower())
-        # index = index + len(resultDrug)
-        # interaction = interaction[:index] + " (" + drug.lower() + ")" + interaction[index:]
-        # index = (interaction.lower()).find(resultDrug2.lower())
-        # index = index + len(resultDrug2)
-        # interaction = interaction[:index] + " (" + drug2.lower() + ")" + interaction[index:]
+        index = (interaction.lower()).find(resultDrug.lower())
+        index = index + len(resultDrug)
+        interaction = interaction[:index] + " (" + drug.lower() + ")" + interaction[index:]
+        index = (interaction.lower()).find(resultDrug2.lower())
+        index = index + len(resultDrug2)
+        interaction = interaction[:index] + " (" + drug2.lower() + ")" + interaction[index:]
         return interaction
     return "There is no interaction between these drugs!"
 
@@ -255,25 +254,25 @@ def returnInteractionsPrior(req):
     result3 = result3v2.text
 
     if "severity" in result3:
-        # if rxcui2 == "448":
-        #     drug2 = "alcohol"
+        if rxcui2 == "448":
+            drug2 = "alcohol"
 
         lhs, rhs = result3.split("description\":\"",1)
         lhs, rhs = rhs.split("\"",1)
         interaction = lhs
-        # print(result3v2.json())
-        # result3v2 = result3v2.json()
-        # resultDrug = result3v2['fullInteractionTypeGroup'][0]['fullInteractionType'][0]['interactionPair'][0]['interactionConcept'][0]['minConceptItem']['name']
-        # resultDrug2 = result3v2['fullInteractionTypeGroup'][0]['fullInteractionType'][0]['interactionPair'][0]['interactionConcept'][1]['minConceptItem']['name']
-        # print(resultDrug)
-        # print(resultDrug2)
+        print(result3v2.json())
+        result3v2 = result3v2.json()
+        resultDrug = result3v2['fullInteractionTypeGroup'][0]['fullInteractionType'][0]['interactionPair'][0]['interactionConcept'][0]['minConceptItem']['name']
+        resultDrug2 = result3v2['fullInteractionTypeGroup'][0]['fullInteractionType'][0]['interactionPair'][0]['interactionConcept'][1]['minConceptItem']['name']
+        print(resultDrug)
+        print(resultDrug2)
 
-        # index = (interaction.lower()).find(resultDrug.lower())
-        # index = index + len(resultDrug)
-        # interaction = interaction[:index] + " (" + drug.lower() + ")" + interaction[index:]
-        # index = (interaction.lower()).find(resultDrug2.lower())
-        # index = index + len(resultDrug2)
-        # interaction = interaction[:index] + " (" + drug2.lower() + ")" + interaction[index:]
+        index = (interaction.lower()).find(resultDrug.lower())
+        index = index + len(resultDrug)
+        interaction = interaction[:index] + " (" + drug.lower() + ")" + interaction[index:]
+        index = (interaction.lower()).find(resultDrug2.lower())
+        index = index + len(resultDrug2)
+        interaction = interaction[:index] + " (" + drug2.lower() + ")" + interaction[index:]
         return interaction
     return "Looks like there is no interaction between these drugs."
 
