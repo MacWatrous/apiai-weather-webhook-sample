@@ -187,9 +187,8 @@ def returnInteractions(req):
 
     baseurl2 = "https://rxnav.nlm.nih.gov/REST/interaction/list.json?rxcuis="
     url3 = baseurl2 + rxcui + "+" + rxcui2
-    result3 = requests.get(url3)
-    result3 = result3.text
-    result3v2 = json.loads(result3)
+    result3v2 = requests.get(url3)
+    result3 = result3v2.text
 
     if "severity" in result3:
         lhs, rhs = result3.split("description\":\"",1)
@@ -240,9 +239,8 @@ def returnInteractionsPrior(req):
 
     baseurl2 = "https://rxnav.nlm.nih.gov/REST/interaction/list.json?rxcuis="
     url3 = baseurl2 + rxcui + "+" + rxcui2
-    result3 = requests.get(url3)
-    result3 = result3.text
-    result3v2 = json.loads(result3)
+    result3v2 = requests.get(url3)
+    result3 = result3v2.text
 
     if "severity" in result3:
         lhs, rhs = result3.split("description\":\"",1)
