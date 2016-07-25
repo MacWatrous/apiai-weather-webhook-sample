@@ -195,6 +195,7 @@ def returnInteractions(req):
         lhs, rhs = rhs.split("\"",1)
         interaction = lhs
         print(result3v2.json)
+        result3v2 = result3v2.json
         resultDrug = result3v2['fullInteractionTypeGroup'][0]['fullInteractionType'][0]['interactionPair'][0]['interactionConcept'][0]['minConceptItem']['name']
         resultDrug2 = result3v2['fullInteractionTypeGroup'][0]['fullInteractionType'][0]['interactionPair'][0]['interactionConcept'][1]['minConceptItem']['name']
         print(resultDrug)
