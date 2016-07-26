@@ -206,17 +206,17 @@ def returnInteractions(req):
         resultDrug2 = result3v2['fullInteractionTypeGroup'][0]['fullInteractionType'][0]['interactionPair'][0]['interactionConcept'][1]['minConceptItem']['name']
         print(resultDrug)
         print(resultDrug2)
-
+        
         index = (interaction.lower()).find(resultDrug.lower())
         drug = drug.lower()
         drug = drug[0].upper() + drug[1:]
         interaction = interaction[:index] + drug + " (" + interaction[index:]
-        index = index + len(resultDrug)
+        index = index + len(resultDrug) + len(drug)
         interaction = interaction[:index] + ")" + interaction[index:]
 
         index = (interaction.lower()).find(resultDrug2.lower())
         interaction = interaction[:index] + drug2.lower() + " (" + interaction[index:]
-        index = index + len(resultDrug)
+        index = index + len(resultDrug2) + len(drug2)
         interaction = interaction[:index] + ")" + interaction[index:]
         
         return interaction
@@ -283,12 +283,12 @@ def returnInteractionsPrior(req):
         drug = drug.lower()
         drug = drug[0].upper() + drug[1:]
         interaction = interaction[:index] + drug + " (" + interaction[index:]
-        index = index + len(resultDrug)
+        index = index + len(resultDrug) + len(drug)
         interaction = interaction[:index] + ")" + interaction[index:]
 
         index = (interaction.lower()).find(resultDrug2.lower())
         interaction = interaction[:index] + drug2.lower() + " (" + interaction[index:]
-        index = index + len(resultDrug)
+        index = index + len(resultDrug2) + len(drug2)
         interaction = interaction[:index] + ")" + interaction[index:]
 
         return interaction
