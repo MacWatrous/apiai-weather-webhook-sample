@@ -208,11 +208,11 @@ def returnInteractions(req):
         print(resultDrug2)
 
         index = (interaction.lower()).find(resultDrug.lower())
-        index = index + len(resultDrug)
-        interaction = interaction[:index] + " (" + drug.lower() + ")" + interaction[index:]
+        #index = index + len(resultDrug)
+        interaction = interaction[:index] + drug.lower() + " (" + interaction[index:]
         index = (interaction.lower()).find(resultDrug2.lower())
-        index = index + len(resultDrug2)
-        interaction = interaction[:index] + " (" + drug2.lower() + ")" + interaction[index:]
+        #index = index + len(resultDrug2)
+        interaction = interaction[:index] + drug2.lower() + " (" + interaction[index:]
         return interaction
     return "There is no interaction between these drugs!"
 
