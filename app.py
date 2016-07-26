@@ -23,16 +23,12 @@ def webhook():
     res = processRequest(req)
 
     res = json.dumps(res, indent=4)
-    #print(res)
     r = make_response(res)
     r.headers['Content-Type'] = 'application/json'
     return r
 
 
 def processRequest(req):
-    #if req.get("result").get("action") != "yahooWeatherForecast":
-        #return {}
-
     if req.get("result").get("action") == "drugInquiry":
         inquiry = returnInquiry(req)
         speech = inquiry
@@ -77,17 +73,6 @@ def processRequest(req):
         }
     else: 
         return {}
-
-    #yahoo stuff
-    #baseurl = "https://query.yahooapis.com/v1/public/yql?"
-    #yql_query = makeYqlQuery(req)
-    #if yql_query is None:
-    #    return {}
-    #yql_url = baseurl + urllib.urlencode({'q': yql_query}) + "&format=json"
-    #result = urllib.urlopen(yql_url).read()
-    #data = json.loads(result)
-    #res = makeWebhookResult(data)
-    #return res
 
 #def returnNDC(rxcui):
     #url = "https://rxnav.nlm.nih.gov/REST/ndcproperties.json?id=" + rxcui
@@ -354,6 +339,8 @@ def makeWebhookResult(data):
         "source": "apiai-weather-webhook-sample"
     }
 
+#def checkProfile(rxcui,rxcui2):
+#    return "We also noticed you have been prescribed 
 
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 8080))
