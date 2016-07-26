@@ -208,7 +208,7 @@ def returnInteractions(req):
         print(resultDrug2)
 
         #if minconcept1 contains rxcui2 then switch drug 1 and drug 2
-        if result3v2['fullInteractionTypeGroup'][0]['fullInteractionType'][0]['minConcept'][0]['rxcui'] == rxcui2 and drug2 != "alcohol":
+        if result3v2['fullInteractionTypeGroup'][0]['fullInteractionType'][0]['minConcept'][0]['rxcui'] == rxcui2 and rxcui2 != "448":
             temp = drug
             drug = drug2
             drug2 = temp            
@@ -286,7 +286,7 @@ def returnInteractionsPrior(req):
         print(resultDrug2)
 
         #if minconcept1 contains rxcui2 then switch drug 1 and drug 2
-        if result3v2['fullInteractionTypeGroup'][0]['fullInteractionType'][0]['minConcept'][0]['rxcui'] == rxcui2 and drug2 != "alcohol":
+        if result3v2['fullInteractionTypeGroup'][0]['fullInteractionType'][0]['minConcept'][0]['rxcui'] == rxcui2 and rxcui2 != "448":
             temp = drug
             drug = drug2
             drug2 = temp     
