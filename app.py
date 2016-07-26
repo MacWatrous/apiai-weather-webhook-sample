@@ -207,6 +207,12 @@ def returnInteractions(req):
         print(resultDrug)
         print(resultDrug2)
 
+        #if minconcept1 contains rxcui2 then switch drug 1 and drug 2
+        if result3v2['fullInteractionTypeGroup'][0]['fullInteractionType'][0]['minConcept'][0]['rxcui'] == rxcui2 and drug2 != "alcohol":
+            temp = drug
+            drug = drug2
+            drug2 = temp            
+
         index = (interaction.lower()).find(resultDrug.lower())
         drug = drug.lower()
         drug = drug[0].upper() + drug[1:]
@@ -278,6 +284,12 @@ def returnInteractionsPrior(req):
         resultDrug2 = result3v2['fullInteractionTypeGroup'][0]['fullInteractionType'][0]['interactionPair'][0]['interactionConcept'][1]['minConceptItem']['name']
         print(resultDrug)
         print(resultDrug2)
+
+        #if minconcept1 contains rxcui2 then switch drug 1 and drug 2
+        if result3v2['fullInteractionTypeGroup'][0]['fullInteractionType'][0]['minConcept'][0]['rxcui'] == rxcui2 and drug2 != "alcohol":
+            temp = drug
+            drug = drug2
+            drug2 = temp     
 
         index = (interaction.lower()).find(resultDrug.lower())
         drug = drug.lower()
