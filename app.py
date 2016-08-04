@@ -1,3 +1,6 @@
+#API.AI Webhook based on https://github.com/api-ai/apiai-weather-webhook-sample
+#Mac Watrous for MedBot POC
+
 #!/usr/bin/env python
 
 import urllib
@@ -27,7 +30,7 @@ def webhook():
     r.headers['Content-Type'] = 'application/json'
     return r
 
-
+#Take bot input and determine what other function to call
 def processRequest(req):
     if req.get("result").get("action") == "drugInquiry":
         inquiry = returnInquiry(req)
@@ -51,6 +54,7 @@ def processRequest(req):
             "source": "apiai-weather-webhook-sample"
         }
 
+    #Drug Interactions with a previously entered drug as context
     if req.get("result").get("action") == "drugInteractionsPrior":
         inquiry = returnInteractionsPrior(req)
         speech = inquiry
@@ -74,6 +78,7 @@ def processRequest(req):
     else: 
         return {}
 
+#Commented out functions which grab additional drug info
 #def returnNDC(rxcui):
     #url = "https://rxnav.nlm.nih.gov/REST/ndcproperties.json?id=" + rxcui
     #result = (requests.get(url)).text
@@ -96,24 +101,23 @@ def processRequest(req):
 
 def returnInquiry(req):
     baseurl = "https://api.fda.gov/drug/label.json?search=openfda."
-    result = req.get("result")
+    result = req.get("result") #parsing our api.ai input
     parameters = result.get("parameters")
     drug = parameters.get("drug")
     url = baseurl + "generic_name:\"" + drug + "\""
     result = requests.get(url)
-    if result.status_code != 200:
+    if result.status_code != 200: #get generic drug info with drug name, if drug is a brand and not generic..
         url = baseurl + "brand_name:\"" + drug + "\""
         result = (requests.get(url))
-        print("help!")
         result = result.text
-        lhs, rhs = result.split("indications_and_usage\": [\n        \"",1)
+        lhs, rhs = result.split("indications_and_usage\": [\n        \"",1) #look for indications_and_usage field in response JSON
         rhs = rhs.replace('\"',".")
         lhs, rhs = rhs.split(".",1)
         inquiry = lhs
         return inquiry
 
     result = result.text
-    lhs, rhs = result.split("indications_and_usage\": [\n        \"",1)
+    lhs, rhs = result.split("indications_and_usage\": [\n        \"",1) #look for indications_and_usage field in response JSON
     rhs = rhs.replace('\"',".")
     lhs, rhs = rhs.split(".",1)
     inquiry = lhs
@@ -128,7 +132,7 @@ def returnRoute(req):
     result = requests.get(url)
 
     result = result.text
-    lhs, rhs = result.split("term\": \"",1)
+    lhs, rhs = result.split("term\": \"",1) #look for term field in response JSON
     lhs, rhs = rhs.split("\"",1)
     inquiry = lhs
     inquiry = inquiry.lower()
@@ -146,51 +150,42 @@ def returnInteractions(req):
     if result.status_code != 200:
         url = baseurl + "brand_name:\"" + drug + "\""
         result = (requests.get(url))
-        print("help!")
     result = result.text
     lhs, rhs = result.split("rxcui",1)
     rhs = rhs[16:]
-    array = re.findall(r"\w+",rhs)
+    array = re.findall(r"\w+",rhs) #parse arrays of RXCUIs
     rxcui = array[0]
 
-    if "true" == parameters.get("alcohol", "true"):
+    if "true" == parameters.get("alcohol", "true"): #if the user isn't talking about alcohol
         drug2 = parameters.get("drug1")
         url2 = baseurl + "generic_name:\"" + drug2 + "\""
         result2 = requests.get(url2)
         if result2.status_code != 200:
             url2 = baseurl + "brand_name:\"" + drug2 + "\""
             result2 = (requests.get(url2))
-            print("help!2")
         result2 = result2.text
         lhs, rhs = result2.split("rxcui",1)
         rhs = rhs[16:]
-        array = re.findall(r"\w+",rhs)
+        array = re.findall(r"\w+",rhs) #parse arrays of RXCUIs
         rxcui2 = array[0]
-    else:
+    else: #if the user is talking about alcohol set our second drug to ethanol
         rxcui2 = "448"
-        print("there's alcohol here")
 
     baseurl2 = "https://rxnav.nlm.nih.gov/REST/interaction/list.json?rxcuis="
     url3 = baseurl2 + rxcui + "+" + rxcui2
     result3v2 = requests.get(url3)
     result3 = result3v2.text
 
-    if "severity" in result3:
+    if "severity" in result3: #if there is an interaction
         if rxcui2 == "448":
             drug2 = "alcohol"
-            #temp = drug
-            #drug = drug2
-            #drug2 = temp
 
-        lhs, rhs = result3.split("description\":\"",1)
+        lhs, rhs = result3.split("description\":\"",1) #find description in JSON
         lhs, rhs = rhs.split("\"",1)
         interaction = lhs
-        print(result3v2.json())
         result3v2 = result3v2.json()
         resultDrug = result3v2['fullInteractionTypeGroup'][0]['fullInteractionType'][0]['interactionPair'][0]['interactionConcept'][0]['minConceptItem']['name']
         resultDrug2 = result3v2['fullInteractionTypeGroup'][0]['fullInteractionType'][0]['interactionPair'][0]['interactionConcept'][1]['minConceptItem']['name']
-        print(resultDrug)
-        print(resultDrug2)
 
         #if minconcept1 contains rxcui2 then switch drug 1 and drug 2
         if result3v2['fullInteractionTypeGroup'][0]['fullInteractionType'][0]['minConcept'][0]['rxcui'] == rxcui2:
@@ -198,6 +193,7 @@ def returnInteractions(req):
             drug = drug2
             drug2 = temp            
 
+        #appending originally searched drug names to the interaction's drug names
         index = (interaction.lower()).find(resultDrug.lower())
         drug = drug.lower()
         drug = drug[0].upper() + drug[1:]
@@ -224,7 +220,6 @@ def returnInteractionsPrior(req):
     if result.status_code != 200:
         url = baseurl + "brand_name:\"" + drug + "\""
         result = (requests.get(url))
-        print("help!")
     result = result.text
     lhs, rhs = result.split("rxcui",1)
     rhs = rhs[16:]
@@ -238,7 +233,6 @@ def returnInteractionsPrior(req):
         if result2.status_code != 200:
             url2 = baseurl + "brand_name:\"" + drug2 + "\""
             result2 = (requests.get(url2))
-            print("help!2")
         result2 = result2.text
         lhs, rhs = result2.split("rxcui",1)
         rhs = rhs[16:]
@@ -253,22 +247,16 @@ def returnInteractionsPrior(req):
     result3v2 = requests.get(url3)
     result3 = result3v2.text
 
-    if "severity" in result3:
+    if "severity" in result3: #if there is an interaction
         if rxcui2 == "448":
             drug2 = "alcohol"
-            #temp = drug
-            #drug = drug2
-            #drug2 = temp
 
-        lhs, rhs = result3.split("description\":\"",1)
+        lhs, rhs = result3.split("description\":\"",1) #find description in JSON
         lhs, rhs = rhs.split("\"",1)
         interaction = lhs
-        print(result3v2.json())
         result3v2 = result3v2.json()
         resultDrug = result3v2['fullInteractionTypeGroup'][0]['fullInteractionType'][0]['interactionPair'][0]['interactionConcept'][0]['minConceptItem']['name']
         resultDrug2 = result3v2['fullInteractionTypeGroup'][0]['fullInteractionType'][0]['interactionPair'][0]['interactionConcept'][1]['minConceptItem']['name']
-        print(resultDrug)
-        print(resultDrug2)
 
         #if minconcept1 contains rxcui2 then switch drug 1 and drug 2
         if result3v2['fullInteractionTypeGroup'][0]['fullInteractionType'][0]['minConcept'][0]['rxcui'] == rxcui2:
@@ -276,6 +264,7 @@ def returnInteractionsPrior(req):
             drug = drug2
             drug2 = temp     
 
+        #appending originally searched drug names to the interaction's drug names
         index = (interaction.lower()).find(resultDrug.lower())
         drug = drug.lower()
         drug = drug[0].upper() + drug[1:]
@@ -290,57 +279,6 @@ def returnInteractionsPrior(req):
 
         return interaction
     return "Looks like there is no interaction between these drugs."
-
-def makeYqlQuery(req):
-    result = req.get("result")
-    parameters = result.get("parameters")
-    city = parameters.get("geo-city")
-    if city is None:
-        return None
-
-    return "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='" + city + "')" 
-
-def makeWebhookResult(data):
-    query = data.get('query')
-    if query is None:
-        return {}
-
-    result = query.get('results')
-    if result is None:
-        return {}
-
-    channel = result.get('channel')
-    if channel is None:
-        return {}
-
-    item = channel.get('item')
-    location = channel.get('location')
-    units = channel.get('units')
-    if (location is None) or (item is None) or (units is None):
-        return {}
-
-    condition = item.get('condition')
-    if condition is None:
-        return {}
-
-    #print(json.dumps(item, indent=4))
-
-    speech = "Today in " + location.get('city') + ": " + condition.get('text') + \
-             ", the temperature is " + condition.get('temp') + " " + units.get('temperature')
-
-    print("Response:")
-    print(speech)
-
-    return {
-        "speech": speech,
-        "displayText": speech,
-        #"data": data,
-        #"contextOut": [],
-        "source": "apiai-weather-webhook-sample"
-    }
-
-#def checkProfile(rxcui,rxcui2):
-#    return "We also noticed you have been prescribed 
 
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 8080))
