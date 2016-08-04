@@ -7,3 +7,5 @@ More info about Api.ai webhooks could be found here:
 
 The service packs the drug inquiry/interactions result in the Api.ai webhook-compatible response JSON and returns it to Api.ai.
 
+Running on:
+https://calm-lowlands-55875.herokuapp.com/
