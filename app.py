@@ -23,6 +23,7 @@ def webhook():
     print("Request:")
     print(json.dumps(req, indent=4))
 
+    #package API.AI information and parse it
     res = processRequest(req)
 
     res = json.dumps(res, indent=4)
@@ -35,6 +36,7 @@ def processRequest(req):
     if req.get("result").get("action") == "drugInquiry":
         inquiry = returnInquiry(req)
         speech = inquiry
+        #returning to API.AI to 'say'
         return {
             "speech": speech,
             "displayText": speech,
@@ -132,7 +134,7 @@ def returnRoute(req):
     result = requests.get(url)
 
     result = result.text
-    lhs, rhs = result.split("term\": \"",1) #look for term field in response JSON
+    lhs, rhs = result.split("term\": \"",1) #look for 'term' field in response JSON
     lhs, rhs = rhs.split("\"",1)
     inquiry = lhs
     inquiry = inquiry.lower()
